@@ -20,21 +20,16 @@ void displayProgressBar(float progress) {
 
 void modularSquareAndMultiply(mpz_t base, mpz_t exponent, mpz_t mod, mpz_t result) {
     mpz_set_ui(result, 1);
-    mpz_t temp;
-    mpz_init(temp);
 
     while (mpz_sgn(exponent) > 0) {
         if (mpz_tstbit(exponent, 0)) {
-            mpz_mul(temp, result, base);
-            mpz_mod(result, temp, mod);
+            mpz_mul(result, result, base);
+            mpz_mod(result, result, mod);
         }
-        mpz_mul(temp, base, base);
-        mpz_mod(base, temp, mod);
-
+        mpz_mul(base, base, base);
+        mpz_mod(base, base, mod);
         mpz_fdiv_q_2exp(exponent, exponent, 1);
     }
-
-    mpz_clear(temp);
 }
 
 bool findLucasLehmerNumber(int exp, mpz_t mod, int updateFrequency) {
