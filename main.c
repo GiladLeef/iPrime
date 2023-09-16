@@ -17,21 +17,6 @@ void displayProgressBar(float progress) {
     printf("] %.2f%%\r", progress * 100);
     fflush(stdout);
 }
-
-void modularSquareAndMultiply(mpz_t base, mpz_t exponent, mpz_t mod, mpz_t result) {
-    mpz_set_ui(result, 1);
-
-    while (mpz_sgn(exponent) > 0) {
-        if (mpz_tstbit(exponent, 0)) {
-            mpz_mul(result, result, base);
-            mpz_mod(result, result, mod);
-        }
-        mpz_mul(base, base, base);
-        mpz_mod(base, base, mod);
-        mpz_fdiv_q_2exp(exponent, exponent, 1);
-    }
-}
-
 bool findLucasLehmerNumber(int exp, mpz_t mod, int updateFrequency) {
     mpz_t s;
     mpz_init(s);
